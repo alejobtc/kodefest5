@@ -59,3 +59,15 @@ app.set('port', process.env.PORT || 443);
 app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
 });
+
+
+
+var TelegramBot = require('node-telegram-bot-api');
+var token = '434489850:AAGQbaNZXKdTrWC-erKCnejrcWI0G2XU51M';
+var bot = new TelegramBot(token, {polling: true});
+
+
+bot.onText(/\/start/, (msg) => {
+bot.sendMessage(msg.chat.id, "Bienvenido al banco");
+    
+});
