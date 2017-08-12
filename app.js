@@ -38,7 +38,7 @@ app.use(function (req, res, next) {
 });
 //
 // ------------DATA BASE---------------------------------
-//require('./controllers/Controller');
+require('./controllers/Controller');
 //-----------------------------------ROUTES---------------------------------
 app.get("/", function (req, res) {
     fs.readFile('./views/index.html', function (err,html) {

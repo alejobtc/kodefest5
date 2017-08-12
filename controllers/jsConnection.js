@@ -4,7 +4,7 @@
 
 const pg = require('pg');
 
-/*
+
 let client = new pg.Client({
     host: 'ec2-54-221-244-196.compute-1.amazonaws.com',
     user: 'rdcxzzqhactsqs',
@@ -14,7 +14,9 @@ let client = new pg.Client({
     ssl: true
 });
 client.connect();
-*/
+
+
+/*
 let client = new pg.Client({
     host: 'localhost',
     user: 'Anderson',
@@ -24,6 +26,7 @@ let client = new pg.Client({
    // ssl: true
 });
 client.connect();
+*/
 
 /*
 const TelegramBot = require('node-telegram-bot-api');
