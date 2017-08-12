@@ -37,13 +37,8 @@ app.use(function (req, res, next) {
     next();
 });
 //
-//-------------------------
-
 // ------------DATA BASE---------------------------------
-var pg = require('pg');
-var connectionString = process.env.DATABASE_URL || 'postgres://rdcxzzqhactsqs:fdf3dfda20cbce7a857d073ac624462b1a53b24ac262e5efea6dd68e1c03b3d8@ec2-54-221-244-196.compute-1.amazonaws.com:5432/d7elf6revnmp3n';
-var client = new pg.Client(connectionString);
-//client.connect();
+//require('./controllers/Controller');
 //-----------------------------------ROUTES---------------------------------
 app.get("/", function (req, res) {
     fs.readFile('./views/index.html', function (err,html) {
