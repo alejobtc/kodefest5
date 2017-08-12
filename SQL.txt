@@ -1,0 +1,14 @@
+
+CREATE TABLE usuario(
+   cedula numeric(10),
+   contraseña varchar(10),
+   titular varchar(10),
+   telefono numeric(10),
+   email varchar(10),
+   numCuenta numeric(10),
+   saldo numeric(10),
+   fechaRegistro date,
+   PRIMARY KEY(cedula)
+);
+
+insert into usuario(cedula, contraseña) values ('1234', '5678');
