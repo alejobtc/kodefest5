@@ -68,6 +68,6 @@ var bot = new TelegramBot(token, {polling: true});
 
 
 bot.onText(/\/start/, (msg) => {
-bot.sendMessage(msg.chat.id, "Bienvenido al banco");
+bot.sendMessage(msg.chat.id, "Bienvenido al hola");
     
 });
