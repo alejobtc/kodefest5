@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 //
 // ---------------------------------DATA BASE------------------------------
 //
-require('./controllers/controllers');
+//require('./controllers/controllers');
 //
 //-----------------------------------ROUTES---------------------------------
 //
