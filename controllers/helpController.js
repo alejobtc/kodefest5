@@ -5,7 +5,7 @@ telegramBot.on('/help', msg => {
         ['/transfer','/history','/pay'],
         ['/buyAction','/sellAction'],
         ['/myInfo'],
-        ['/registro', '/login','/logout']
+        ['/register', '/login','/logout']
         ]
     , {resize: true});
     return telegramBot.sendMessage(
@@ -21,7 +21,7 @@ telegramBot.on('/help', msg => {
         "/buyAction ver y comprar las acciones que disponga el banco\n"+
         "/sellAction vender al valor actual las acciones disponibles\n\n"+
         "Comandos inciales:\n"+
-        "/registro Para crear un nuevo usuario \n"+
+        "/register Para crear un nuevo usuario \n"+
         "/login para ingresar a su cuenta\n\n",  {replyMarkup}
     );
 });
