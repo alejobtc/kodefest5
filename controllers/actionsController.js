@@ -16,7 +16,7 @@ telegramBot.on('/buyAction', msg => {
     let data;
     let info;
     bdConnect.query(query, function (err, rows) {
-        if (err)throw err;
+        if (err)return telegramBot.sendMessage(id, 'No es posible realizar esta accion');
 
             data= JSON.stringify(rows);
             info= JSON.parse(data).rows;
@@ -52,7 +52,7 @@ telegramBot.on('ask.buyinfo',msg=>{
 	let query="select saldo,precioAccion,cantAccionesAct from usuario,empresa where cedula='"+usuario.cedula+"'and idempresa='"+msg.text+"';";                 
 	//verifica saldo y almacena
 	bdConnect.query(query, function (err, rows) {                     
-		if (err)throw err;                     
+		if (err)return telegramBot.sendMessage(id, 'No es posible realizar esta accion');                    
 		let data= JSON.stringify(rows);                     
 		usuarioAcciones[msg.from.id].saldo= JSON.parse(data).rows[0].saldo;
 		usuarioAcciones[msg.from.id].precioaccion=JSON.parse(data).rows[0].precioaccion;
@@ -85,7 +85,7 @@ telegramBot.on('ask.buy',msg=>{
 		let query="select *  from accion where idEmpresa='"+usuarioAcciones[msg.from.id].idempresa+"' and ceduladueño='"+usuarioAcciones[msg.from.id].cedula+"';"
 		//verifica si ya existe Registro
 		bdConnect.query(query, function (err, rows) {
-				if (err)throw err;
+				if (err)return telegramBot.sendMessage(id, 'No es posible realizar esta accion');
 				let data=JSON.stringify(rows);
 				let info=JSON.parse(data).rows;
 				//si existe update
@@ -127,7 +127,7 @@ telegramBot.on('/sellAction', msg => {
     let info;
 
     bdConnect.query(query, function (err, rows) {
-		if (err)throw err;
+		if (err)return telegramBot.sendMessage(id, 'No es posible realizar esta accion');
 		data= JSON.stringify(rows);
         info= JSON.parse(data).rows;
             
@@ -153,7 +153,7 @@ telegramBot.on('ask.sellinfo',msg=>{
 	//agregar la cantidad que posee y verificar con la que quiere vender
 	let query="SELECT cantidad,precioAccion from accion,empresa where ceduladueño='"+usuario.cedula+"' and empresa.idEmpresa=accion.idEmpresa and accion.idempresa='"+usuarioAcciones[msg.from.id].idempresa+"';"
 	bdConnect.query(query, function (err, rows) {
-		if (err)throw err;
+		if (err)return telegramBot.sendMessage(id, 'No es posible realizar esta accion');
 		let data= JSON.stringify(rows);  
 		//guarda la cantidad de acciones de la empresa dispobibles de la persona
 		usuarioAcciones[msg.from.id].cantidad=JSON.parse(data).rows[0].cantidad;
@@ -195,7 +195,7 @@ function actualizarSaldoUsuario(id,tipo){
 	if(tipo=="adicion"){
 		let query="update usuario set saldo=saldo+'"+(usuarioAcciones[id].cantidadacciones*usuarioAcciones[id].precioaccion)+"' where cedula='"+usuarioAcciones[id].cedula+"';";
 		bdConnect.query(query, function (err, rows) {
-			if (err)throw err;
+			if (err)return telegramBot.sendMessage(id, 'No es posible realizar esta accion');
 			return telegramBot.sendMessage(id,'saldo actualizado');
 
 		});
@@ -203,7 +203,7 @@ function actualizarSaldoUsuario(id,tipo){
 		if(tipo=="resta"){
 			let query="update usuario set saldo=saldo-'"+(usuarioAcciones[id].cantidadacciones*usuarioAcciones[id].precioaccion)+"' where cedula='"+usuarioAcciones[id].cedula+"';";
 			bdConnect.query(query, function (err, rows) {
-				if (err)throw err;
+				if (err)return telegramBot.sendMessage(id, 'No es posible realizar esta accion');
 				return telegramBot.sendMessage(id,'saldo actualizado');
 
 			});
@@ -215,7 +215,7 @@ function actualizarCompra(id,tipo){
 	if(tipo=="adicion"){
 		let query="update accion set cantidad=cantidad+"+usuarioAcciones[id].cantidadacciones+"where idempresa='"+usuarioAcciones[id].idempresa+"' and ceduladueño='"+usuarioAcciones[id].cedula+"';" 
 		bdConnect.query(query, function (err, rows) {
-			if (err)throw err;
+			if (err)return telegramBot.sendMessage(id, 'No es posible realizar esta accion');
 			return telegramBot.sendMessage(id,'Compra realizada con exito');
 
 		});
@@ -223,7 +223,7 @@ function actualizarCompra(id,tipo){
 		if(tipo=="resta"){
 			let query="update accion set cantidad=cantidad-"+usuarioAcciones[id].cantidadacciones+"where idempresa='"+usuarioAcciones[id].idempresa+"' and ceduladueño='"+usuarioAcciones[id].cedula+"';" 
 			bdConnect.query(query, function (err, rows) {
-				if (err)throw err;
+				if (err)return telegramBot.sendMessage(id, 'No es posible realizar esta accion');
 				return telegramBot.sendMessage(id,'Compra realizada con exito');
 
 			});
@@ -233,7 +233,7 @@ function actualizarCompra(id,tipo){
 function insertarCompra(id){
 	let query="insert into accion(idEmpresa,cantidad,ceduladueño) values ('"+usuarioAcciones[id].idempresa+"','"+usuarioAcciones[id].cantidadacciones+"','"+usuarioAcciones[id].cedula+"');";
 	bdConnect.query(query, function (err, rows) {
-		if (err)throw err;
+		if (err)return telegramBot.sendMessage(id, 'No es posible realizar esta accion');
 		return telegramBot.sendMessage(id,'Compra realizada con exito');
 
 	});
@@ -242,7 +242,7 @@ function actualizarEmpresa(id,tipo){
 	if(tipo=="resta"){
 		let query="update empresa set cantAccionesAct=cantAccionesAct-"+usuarioAcciones[id].cantidadacciones+" where idEmpresa="+usuarioAcciones[id].idempresa+";"
 		bdConnect.query(query, function (err, rows) {
-			if (err)throw err;
+			if (err)return telegramBot.sendMessage(id, 'No es posible realizar esta accion');
 			//console.log("actualizacion de bd good");
 
 		});
@@ -250,7 +250,7 @@ function actualizarEmpresa(id,tipo){
 		if(tipo=="adicion"){
 			let query="update empresa set cantAccionesAct=cantAccionesAct+"+usuarioAcciones[id].cantidadacciones+" where idEmpresa="+usuarioAcciones[id].idempresa+";"
 			bdConnect.query(query, function (err, rows) {
-				if (err)throw err;
+				if (err)return telegramBot.sendMessage(id, 'No es posible realizar esta accion');
 				//console.log("actualizacion de bd good");
 
 			});
@@ -261,7 +261,7 @@ function actualizarSaldoBanco(id,tipo){
 	if(tipo=="adicion"){
 		let query="update usuario set saldo=saldo+"+(usuarioAcciones[id].cantidadacciones*usuarioAcciones[id].precioaccion)+"where cedula='8080' ;";
 		bdConnect.query(query, function (err, rows) {
-			if (err)throw err;
+			if (err)return telegramBot.sendMessage(id, 'No es posible realizar esta accion');
 			//console.log("actualizacion de banco good");
 
 		});
@@ -269,7 +269,7 @@ function actualizarSaldoBanco(id,tipo){
 		if(tipo=="resta"){
 			let query="update usuario set saldo=saldo-"+(usuarioAcciones[id].cantidadacciones*usuarioAcciones[id].precioaccion)+"where cedula='8080' ;";
 			bdConnect.query(query, function (err, rows) {
-				if (err)throw err;
+				if (err)return telegramBot.sendMessage(id, 'No es posible realizar esta accion');
 				//console.log("actualizacion de banco good");
 
 			});

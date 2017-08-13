@@ -17,7 +17,9 @@ telegramBot.on('/myInfo', msg => {
 
         let mensaje='';
 
-        if (err) throw err;
+        if (err){
+            return telegramBot.sendMessage(id, "Ha ocurrido un error. Inténtalo de nuevo en /myInfo");
+        }
 
         for (let i=0; i<rows.length; i++ ){
             mensaje += 'Cédula: '+rows[i].cedula+'\n';

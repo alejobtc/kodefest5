@@ -3,7 +3,6 @@ const bdConnect = require('./jsConnection').bdConnection;
 new CronJob('*/30 * * * * *', function() {
 	let query = "select * from empresa;";
     bdConnect.query(query, function (err, rows) {
-        if (err)throw err;
         let data= rows.rows;
         for (var i = data.length - 1; i >= 0; i--) {
         	let valor = Number(data[i].precioaccion)+

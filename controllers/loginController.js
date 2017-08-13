@@ -75,7 +75,9 @@ telegramBot.on('ask.key', msg => {
             user.key=key;
             let query = "select count(*) cantidad from usuario where cedula= '"+user.cedula+"' and contraseña='"+user.key+"';";
             bdConnect.query(query, function (err, rows) {
-                if (err)throw err;
+                if (err){
+                    return telegramBot.sendMessage(id, "Ha ocurrido un error. Inténtalo de nuevo en /login");
+                }
                 let data= JSON.stringify(rows);
                 let count = JSON.parse(data).rows[0].cantidad;
 

@@ -19,7 +19,9 @@ telegramBot.on('/history', msg => {
         let data= JSON.stringify(rows);
         rows= JSON.parse(data).rows;
 
-        if (err) throw err;
+        if (err){
+            return telegramBot.sendMessage(id, 'Ha ocurrido un error. Inténtalo de nuevo en /history');
+        }
 
         for (let i=0; i<rows.length; i++ ){
             mensaje += 'Cédula Origen: '+rows[i].origen+'\n';
@@ -64,14 +66,18 @@ telegramBot.on('ask.abono', msg => {
         if(user.chat_id==""+id){
             let query= "select saldo from usuario where cedula='"+user.cedula+"'";
             bdConnect.query(query, function (err, rows) {
-                if (err)throw err;
+                if (err){
+                    return telegramBot.sendMessage(id, 'Ha ocurrido un error. Inténtalo de nuevo en /pay');
+                }
                 let data= JSON.stringify(rows);
                 let saldo = JSON.parse(data).rows[0].saldo;
                 abono+=saldo*1;
                 let query2 ="update usuario set saldo = '"+abono+"' where usuario.cedula= '"+user.cedula+"'";
                 bdConnect.query(query2, function (err, rows) {
-                    if (err)throw err;
-                        return telegramBot.sendMessage(id, 'Abono exitoso');
+                    if (err){
+                        return telegramBot.sendMessage(id, 'Ha ocurrido un error. Inténtalo de nuevo en /pay');
+                    }
+                    return telegramBot.sendMessage(id, 'Abono exitoso');
                 });
             });
 
@@ -92,7 +98,9 @@ telegramBot.on('ask.monto', msg => {
             if(user.chat_id==id){
                 let query= "select saldo from usuario where cedula='"+user.cedula+"'";
                 bdConnect.query(query, function (err, rows) {
-                    if (err)throw err;
+                    if (err){
+                        return telegramBot.sendMessage(id, 'Ha ocurrido un error. Inténtalo de nuevo en /transfer');
+                    }
                     let data= JSON.stringify(rows);
                     let saldo = JSON.parse(data).rows[0].saldo;
                     if(saldo*1<monto*1){
@@ -135,7 +143,9 @@ telegramBot.on('ask.destino', msg => {
             trans.destino=destino;
             let query= "select count(*) cantidad from usuario where cedula='"+destino+"'";
             bdConnect.query(query, function (err, rows) {
-                if (err)throw err;
+                if (err){
+                    return telegramBot.sendMessage(id, 'Ha ocurrido un error. Inténtalo de nuevo en /transfer');
+                }
                 let data= JSON.stringify(rows);
                 let count = JSON.parse(data).rows[0].cantidad;
 

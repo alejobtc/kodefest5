@@ -46,7 +46,7 @@ telegramBot.on('ask.cedulaCreate', msg => {
     let query = "select count(*) cantidad from usuario where cedula='"+cedula+"';"
     bdConnect.query(query,(err,rows)=>{
     	if(err){
-    		throw err;
+    		return telegramBot.sendMessage(id, 'Ha ocurrido un error. Inténtalo de nuevo en /registro');
     	}
     	else{
     		let data= JSON.stringify(rows);
