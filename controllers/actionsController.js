@@ -7,6 +7,10 @@ let usuarioAcciones={};
 telegramBot.on('/buyAction', msg => {
 	const id = msg.from.id;
 
+	if(!getUser(id)){
+        return telegramBot.sendMessage(id, 'No hay una sesion activa. Inicie una en /login');
+    }
+
 	//mostrar las acciones disponibles y precio
     let query = "select * from empresa where cantAcciones>=cantAccionesAct;";
     let data;
@@ -111,6 +115,11 @@ telegramBot.on('ask.buy',msg=>{
 
 telegramBot.on('/sellAction', msg => {
 	const id = msg.from.id;
+	
+	if(!getUser(id)){
+        return telegramBot.sendMessage(id, 'No hay una sesion activa. Inicie una en /login');
+    }
+
 	let usuario=getUser(id);
 	let query="SELECT accion.idEmpresa,cantidad,ceduladueño,nombreEmpresa,precioAccion from accion,empresa where ceduladueño='"+usuario.cedula+"' and empresa.idEmpresa=accion.idEmpresa;"
 	
@@ -180,6 +189,7 @@ function getUser(chat_id){
             return user;
         }
     }
+    return null;
 }
 function actualizarSaldoUsuario(id,tipo){
 	if(tipo=="adicion"){
