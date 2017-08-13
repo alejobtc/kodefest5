@@ -4,15 +4,17 @@ const telegramBot = require('./jsConnection').telegramConnection;
 var usuario = {};
 
 telegramBot.on('/start', msg => {
-	let replyMarkup = telegramBot.keyboard([
-        ['/registro', '/login']
+ let replyMarkup = telegramBot.keyboard([
+        ['/registro', '/login'],
+        ['/help']
         ]
     , {resize: true});
     return telegramBot.sendMessage(
         msg.from.id, 
         "Bienvenido a BantelegramBot que desea hacer:\n"+ 
         "/registro Para crear un nuevo usuario \n"+
-        "/login para ingresar a su cuenta",  {replyMarkup}
+        "/login para ingresar a su cuenta\n"+
+        "/help para ver todos los comandos disponibles",  {replyMarkup}
     );
 });
 
