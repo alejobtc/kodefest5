@@ -99,7 +99,7 @@ telegramBot.on('ask.contraseñaconfir', msg => {
     	//telegramBot.sendMessage(id,query);
     	bdConnect.query(query,(err,rows)=>{
     		if (err) {
-    			throw err;
+    			telegramBot.sendMessage(id,'Los valores son demasiado largos');
     		}
     		else{
     			telegramBot.sendMessage(id,'Registrado con exito');
