@@ -1,3 +1,4 @@
+require('./helpController');
 require('./signupController');
 require('./loginController');
 require('./transferController');
