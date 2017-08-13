@@ -19,7 +19,7 @@ telegramBot.on('/start', msg => {
     );
 });
 
-telegramBot.on('/registro', msg=>{
+telegramBot.on('/register', msg=>{
 	usuario[msg.from.id]={}
 	const id = msg.from.id;
     return telegramBot.sendMessage(id, 'Cuál es tu nombre completo?', {ask: 'name', replyMarkup: 'hide'});
@@ -46,7 +46,7 @@ telegramBot.on('ask.cedulaCreate', msg => {
     let query = "select count(*) cantidad from usuario where cedula='"+cedula+"';"
     bdConnect.query(query,(err,rows)=>{
     	if(err){
-    		return telegramBot.sendMessage(id, 'Ha ocurrido un error. Inténtalo de nuevo en /registro');
+    		return telegramBot.sendMessage(id, 'Ha ocurrido un error. Inténtalo de nuevo en /register');
     	}
     	else{
     		let data= JSON.stringify(rows);
