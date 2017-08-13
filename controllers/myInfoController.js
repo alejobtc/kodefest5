@@ -36,21 +36,26 @@ telegramBot.on('/myInfo', msg => {
         bdConnect.query(query, function (err, rows) {
 	        let data= JSON.stringify(rows);
 	        rows= JSON.parse(data).rows;
+            let accionParaMostrar = false;
+
+            mensaje += '\n\n Acciones adquiridas:\n\n';
 
 	        if(rows.length>0){
-	        	mensaje += '\n\n Acciones adquiridas:\n\n';
-	        
 		        for (let i=0; i<rows.length; i++ ){
                     if(rows[i].cantidad >0){
                         mensaje += 'Empresa: '+rows[i].nombreempresa+'\n';
                         mensaje += 'Cantidad De Acciones: '+rows[i].cantidad+'\n';
                         mensaje += 'Precio Por Acción: $'+rows[i].precioaccion;
+                        accionParaMostrar=true;
                         if(i+1<rows.length){
                             mensaje += '\n______\n';
                         }
                     }
 		        }
 	        }
+            if(!accionParaMostrar){
+                mensaje += 'No ha adquirido acciones. Puede comprarlas en /buyAction';
+            }
 	        return telegramBot.sendMessage(id,mensaje);
 
 	    });
