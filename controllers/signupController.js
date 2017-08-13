@@ -14,7 +14,7 @@ telegramBot.on('/start', msg => {
         "Bienvenido a BantelegramBot que desea hacer:\n\n"+ 
         "/registro Para crear un nuevo usuario. \n"+
         "/login Para ingresar a su cuenta.\n"+
-        "/help Para ver todos los comandos disponibles.\n\n"
+        "/help Para ver todos los comandos disponibles.\n\n"+
         "Recuerde que el valor de las acciones cambia cada 30 segundos.",  {replyMarkup}
     );
 });
