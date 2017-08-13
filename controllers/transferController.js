@@ -9,6 +9,10 @@ var moment = require('moment');
 telegramBot.on('/history', msg => {
     const id = msg.from.id;
 
+    if(!getUser(id)){
+        return telegramBot.sendMessage(id, 'No hay una sesion activa. Inicie una en /login');
+    }
+
     var queryString = "select * from historial where origen= '"+getUser(id).cedula+"' or  destino =' "+getUser(id).cedula+"';";
     let mensaje="";
     bdConnect.query(queryString, function (err, rows) {
@@ -186,4 +190,5 @@ function getUser(chat_id){
             return user;
         }
     }
+    return null;
 }
