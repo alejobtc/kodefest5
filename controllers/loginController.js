@@ -80,7 +80,7 @@ telegramBot.on('ask.key', msg => {
                 let count = JSON.parse(data).rows[0].cantidad;
 
                 if(count>0){
-                    return telegramBot.sendMessage(id, 'Logeado');
+                    return telegramBot.sendMessage(id, 'Logueado');
                 }
                 else{
                     logins.splice(index,1);

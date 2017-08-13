@@ -10,12 +10,11 @@ telegramBot.on('/myInfo', msg => {
     }
 
     var queryString = "select * from usuario where cedula= '"+getUser(id).cedula+"';";
-    
+
     bdConnect.query(queryString, function (err, rows) {
         let data= JSON.stringify(rows);
         rows= JSON.parse(data).rows;
 
-        //console.log(rows);
         let mensaje='';
 
         if (err) throw err;
@@ -27,7 +26,26 @@ telegramBot.on('/myInfo', msg => {
             mensaje += 'Email: '+rows[i].email+'\n';
             mensaje += 'Saldo: '+rows[i].saldo;
         }
-        return telegramBot.sendMessage(id,mensaje);
+
+        let query = 'select * from empresa,';
+        query += '(select * from usuario, accion where (usuario.cedula = accion.ceduladueño and cedula='+getUser(id).cedula+'))A'; 
+        query += ' where empresa.idempresa=A.idempresa;'
+
+        bdConnect.query(query, function (err, rows) {
+	        let data= JSON.stringify(rows);
+	        rows= JSON.parse(data).rows;
+
+	        if(rows.length>0){
+	        	mensaje += '\n\n Acciones adquiridas:\n';
+	        
+		        for (let i=0; i<rows.length; i++ ){
+		            mensaje += 'Empresa: '+rows[i].nombreempresa+'\n';
+		            mensaje += 'Cantidad De Acciones: '+rows[i].cantidad;
+		        }
+	        }
+	        return telegramBot.sendMessage(id,mensaje);
+
+	    });
 
     });
 });

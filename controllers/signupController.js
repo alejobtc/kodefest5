@@ -15,7 +15,7 @@ telegramBot.on('/start', msg => {
         "/registro Para crear un nuevo usuario. \n"+
         "/login Para ingresar a su cuenta.\n"+
         "/help Para ver todos los comandos disponibles.\n\n"+
-        "Recuerde que el valor de las acciones cambia cada 30 segundos.",  {replyMarkup}
+        "Recuerde que el valor de las acciones esta fluctuando cada 30 segundos, puede comprar y vender en cualquier momento desde que se tengan acciones disponibles",  {replyMarkup}
     );
 });
 
