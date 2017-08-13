@@ -41,12 +41,14 @@ telegramBot.on('/myInfo', msg => {
 	        	mensaje += '\n\n Acciones adquiridas:\n\n';
 	        
 		        for (let i=0; i<rows.length; i++ ){
-		            mensaje += 'Empresa: '+rows[i].nombreempresa+'\n';
-		            mensaje += 'Cantidad De Acciones: '+rows[i].cantidad+'\n';
-		            mensaje += 'Precio Por Acción: $'+rows[i].precioaccion;
-		            if(i+1<rows.length){
-		                mensaje += '\n______\n';
-		            }
+                    if(rows[i].cantidad >0){
+                        mensaje += 'Empresa: '+rows[i].nombreempresa+'\n';
+                        mensaje += 'Cantidad De Acciones: '+rows[i].cantidad+'\n';
+                        mensaje += 'Precio Por Acción: $'+rows[i].precioaccion;
+                        if(i+1<rows.length){
+                            mensaje += '\n______\n';
+                        }
+                    }
 		        }
 	        }
 	        return telegramBot.sendMessage(id,mensaje);
