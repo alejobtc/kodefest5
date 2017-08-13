@@ -25,6 +25,7 @@ client.connect();
 const TeleBot= require('telebot');
 const bot = new TeleBot({
     token: '434489850:AAGQbaNZXKdTrWC-erKCnejrcWI0G2XU51M',
+    //token: '424428738:AAErvV51VDT5v0gfomhap3Z6pnhqoKDPvzA',
     usePlugins: ['askUser']
 });
 

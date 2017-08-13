@@ -3,3 +3,4 @@ require('./loginController');
 require('./transferController');
 require('./actionsController');
 require('./simuController');
+require('./myInfoController');
