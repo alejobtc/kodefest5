@@ -36,7 +36,7 @@ telegramBot.on('/myInfo', msg => {
 	        rows= JSON.parse(data).rows;
 
 	        if(rows.length>0){
-	        	mensaje += '\n\n Acciones adquiridas:\n';
+	        	mensaje += '\n\n Acciones adquiridas:\n\n';
 	        
 		        for (let i=0; i<rows.length; i++ ){
 		            mensaje += 'Empresa: '+rows[i].nombreempresa+'\n';
