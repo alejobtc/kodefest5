@@ -11,10 +11,11 @@ telegramBot.on('/start', msg => {
     , {resize: true});
     return telegramBot.sendMessage(
         msg.from.id, 
-        "Bienvenido a BantelegramBot que desea hacer:\n"+ 
-        "/registro Para crear un nuevo usuario \n"+
-        "/login para ingresar a su cuenta\n"+
-        "/help para ver todos los comandos disponibles",  {replyMarkup}
+        "Bienvenido a BantelegramBot que desea hacer:\n\n"+ 
+        "/registro Para crear un nuevo usuario. \n"+
+        "/login Para ingresar a su cuenta.\n"+
+        "/help Para ver todos los comandos disponibles.\n\n"
+        "Recuerde que el valor de las acciones cambia cada 30 segundos.",  {replyMarkup}
     );
 });
 
@@ -68,7 +69,7 @@ telegramBot.on('ask.numero', msg => {
     const numero = Number(msg.text);
 
     if (!numero) {
-        telegramBot.sendMessage(id, 'Este no es un correcto, Ingresa tu numero telefonico: ', {ask: 'numero'});
+        telegramBot.sendMessage(id, 'Este no es un número correcto, Ingresa tu numero telefonico: ', {ask: 'numero'});
 
     } else {
     	usuario[msg.from.id].numero=msg.text;
