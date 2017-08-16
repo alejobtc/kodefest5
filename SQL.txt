@@ -1,3 +1,7 @@
+﻿DROP TABLE accion;
+DROP TABLE  empresa;
+DROP TABLE  usuario;
+
 
 CREATE TABLE usuario(
    cedula numeric(10),
@@ -11,4 +15,36 @@ CREATE TABLE usuario(
    PRIMARY KEY(cedula)
 );
 
-insert into usuario(cedula, contraseña) values ('1234', '5678');
+
+CREATE TABLE Historial(
+   origen numeric(10),
+   destino numeric(10),
+   Monto numeric(10),
+   fecha date
+);
+
+CREATE TABLE empresa(
+   idEmpresa NUMERIC(10),
+   nombreEmpresa VARCHAR(20),
+   cantAcciones NUMERIC(10),
+   cantAccionesAct NUMERIC(10),
+   precioAccion NUMERIC(20),
+   PRIMARY KEY (idEmpresa)
+);
+
+CREATE TABLE accion(
+   idEmpresa NUMERIC(10),
+   cantidad NUMERIC(10),
+   ceduladueño NUMERIC(10),
+   PRIMARY KEY (idEmpresa,ceduladueño),
+   FOREIGN KEY (idEmpresa) REFERENCES empresa(idEmpresa),
+   FOREIGN KEY (ceduladueño) REFERENCES usuario(cedula)
+);
+
+
+insert into usuario(cedula, contraseña,saldo) values ('1234', '5678','1000');
+insert into usuario(cedula, contraseña,saldo) values ('12345', '56789','1200');
+insert into usuario(cedula,contraseña,titular,saldo) values('8080','8080','banco','30000');
+
+insert into empresa(idEmpresa,nombreEmpresa,cantAcciones,cantAccionesAct,precioAccion) values('1','microsoft','100','100','10');
+insert into empresa(idEmpresa,nombreEmpresa,cantAcciones,cantAccionesAct,precioAccion) values('2','facebook','120','120','15');

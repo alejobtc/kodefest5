@@ -2,11 +2,10 @@ const bdConnect = require('./jsConnection').bdConnection;
 const telegramBot = require('./jsConnection').telegramConnection;
 
 let logins = [];
-
+module.exports.logins= logins;
 function verificarId(id){
     for (let i = 0; i<logins.length;i++){
         let user = logins[i];
-        console.log("comparacion "  + user.chat_id+"=="+id);
         if(user.chat_id==""+id){
             return true;
         }
@@ -27,7 +26,7 @@ function verificarCed(ced){
 telegramBot.on('/login', msg => {
     const id = msg.from.id;
     if(!verificarId(id)) {
-        logins.push({"chat_id": msg.from.id, "step": 1, "cedula": '', "key": ''});
+        logins.push({"chat_id": msg.from.id,"cedula": '', "key": ''});
         return telegramBot.sendMessage(id, 'Ingrese su cedula', {ask: 'cedula'});
     }
     else{
@@ -80,10 +79,7 @@ telegramBot.on('ask.key', msg => {
                 let data= JSON.stringify(rows);
                 let count = JSON.parse(data).rows[0].cantidad;
 
-                console.log(count);
-
                 if(count>0){
-                    console.log(logins);
                     return telegramBot.sendMessage(id, 'Logeado');
                 }
                 else{
@@ -95,3 +91,6 @@ telegramBot.on('ask.key', msg => {
         }
     });
 });
+
+module.exports.logins= logins;
+module.exports.verificarId=verificarId;

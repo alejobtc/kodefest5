@@ -1,17 +1,17 @@
 const pg = require('pg');
 
-/*
+
 let client = new pg.Client({
     host: 'ec2-54-221-244-196.compute-1.amazonaws.com',
     user: 'rdcxzzqhactsqs',
     password: 'fdf3dfda20cbce7a857d073ac624462b1a53b24ac262e5efea6dd68e1c03b3d8',
-    database: 'rdcxzzqhactsqs',
+    database: 'd7elf6revnmp3n',
     port: 5432,
     ssl: true
 });
 client.connect();
-*/
 
+/*
 let client = new pg.Client({
     host: 'localhost',
     user: 'alumno',
@@ -20,11 +20,11 @@ let client = new pg.Client({
     port: 5432
 });
 client.connect();
-
+*/
 
 const TeleBot= require('telebot');
 const bot = new TeleBot({
-    token: '443862803:AAGMgCf2SrxKb--pSuII2vhSfxkb2WHBHzI',
+    token: '434489850:AAGQbaNZXKdTrWC-erKCnejrcWI0G2XU51M',
     usePlugins: ['askUser']
 });
 
